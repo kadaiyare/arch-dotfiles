@@ -1,0 +1,42 @@
+* {
+    font-family: "UDEV Gothic 35NF", "Font Awesome 6 Free", sans-serif;
+    font-size: 22px;
+}
+
+window {
+    margin: 0px;
+    border: 2px solid #89b4fa;
+    background-color: rgba(30, 30, 46, 0.8);
+    border-radius: 15px;
+}
+
+#input {
+    margin: 15px;
+    padding: 15px;
+    border: none;
+    background-color: #11111b;
+    color:#cdd6f4;
+    border-radius: 15px;
+}
+
+#outer-box {
+    margin: 7px;
+    border: none;
+    background-color: transparent;
+}
+
+#entry {
+    margin: 7px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: transparent;
+}
+
+#entry:selected {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+}
+
+#img {
+    margin-right: 15px;
+}

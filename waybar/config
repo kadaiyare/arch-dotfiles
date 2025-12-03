@@ -1,0 +1,158 @@
+{
+    "layer": "top", // バーの表示位置 (top/bottom)
+    "position": "top",
+    "height": 40, // バーの高さ（フォントサイズに合わせて調整）
+    "spacing": 3, // モジュール間の隙間
+    
+    // モジュールの配置
+    "modules-left": [
+        "hyprland/workspaces",
+        "clock",
+        "custom/screenshot",
+        "hyprland/window",
+        "custom/cava",
+    ],
+    "modules-center": [
+         "mpris",
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "pulseaudio",
+        "network",
+        "battery",
+        "tray"
+    ],
+
+    // --- 各モジュールの詳細設定 ---
+
+    // ワークスペース（Hyprland専用）
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}", // アイコンにしたい場合は "{icon}" に変更
+        "on-click": "activate"
+    },
+
+    // ウィンドウタイトル
+// ウィンドウタイトル
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 15,
+        "separate-outputs": true,
+        
+        // ★ここが魔法の書き換えルールです
+        "rewrite": {
+            // 正規表現 (Regex) を使ってマッチさせます
+            
+            // Firefox (タイトルに "Mozilla Firefox" が含まれる場合) -> Firefoxアイコン
+            "(.*)Firefox": "<span size='20pt'></span>",
+            
+            // VS Code (タイトルに "Visual Studio Code" が含まれる場合) -> VS Codeアイコン
+            "(.*)Visual Studio Code": "<span size='20pt'>󰨞</span>",
+            
+            // YouTube Music (タイトルに "YouTube Music" が含まれる場合) -> 再生ボタンアイコン
+            "(.*)YouTube Music": "<span size='20pt'></span>",
+
+            "(.*)Vesktop": "<span size='16pt'></span>"
+
+            // それ以外は設定しなくてOK（デフォルトのタイトルが表示されます）
+        }
+    },
+
+    "mpris": {
+        "intercel": 1,
+        "format": "{player_icon} {title} - {artist}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "max-length": 40,
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵",
+            "spotify": "",
+            "YoutubeMusic": ""
+        },
+        "status-icons": {
+            "paused": "⏸"
+        }
+    },
+
+    "custom/cava" :{
+        "exec": "~/.config/waybar/cava.sh",
+        "exec-if": "playerctl status | grep PLaying",
+        "format": "{}",
+        "return-type": "plain",
+        "restart-interval": 1,
+        "hide-empty-text": true
+    },
+    "custom/screenshot": {
+        "format": " ",
+        "tooltip-format": "Take a screenshot",
+        "on-click": "grim -g \"$(slurp)\" - | wl-copy",
+    },
+    // 時計
+    "clock": {
+        "format": " {:%H:%M}", // アイコン + 時:分
+        "format-alt": " {:%Y/%m/%d (%a)}", // クリックで日付表示に切り替え
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    // CPU使用率
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": false
+    },
+
+    // メモリ使用率
+    "memory": {
+        "interval": 10,
+        "format": " {}%",
+        "max-length": 10
+    },
+
+    // 音量 (PulseAudio)
+"pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        
+        // ★追加: Bluetooth接続時はこのフォーマットが優先されます
+        "format-bluetooth": "{volume}%",
+        "format-bluetooth-muted": " Muted",
+
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // ネットワーク
+    "network": {
+        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀 Wired",
+        "format-disconnected": "⚠ Disconnected",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "on-click": "nm-connection-editor" // クリックで設定を開く（入っていれば）
+    },
+    
+    // バッテリー
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    // システムトレイ（常駐アプリ）
+    "tray": {
+        "spacing": 10
+    }
+}

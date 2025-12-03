@@ -1,0 +1,108 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* UDEV Gothic 35NF を指定 */
+    font-family: "UDEV Gothic 35NF", "Symbols Nerd Font", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: transparent; /* バー自体の背景は透明にする */
+    color: #ffffff;
+}
+
+/* モジュール共通の見た目（背景色をつけて丸くする） */
+#workspaces,
+#clock,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#battery,
+#custom-screenshot,
+#tray,
+#custom-cava,
+#window {
+    background-color: #1e1e2e; /* 背景色 (ダークグレー) */
+    color: #ffffff;
+    padding: 6px 6px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 8px; /* 右側に隙間を作る */
+    border-radius: 15px; /* 角を丸くする */
+    border: 2px solid #11111b; /* 枠線 */
+}
+#mpris {
+    background-color: #1e1e2e; /* 背景色 (ダークグレー) */
+    color: #ffffff;
+    padding: 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 8px;
+    border-radius: 15px;
+    border: 2px solid #11111b;
+}
+
+/* 左端のワークスペースの調整 */
+#workspaces button {
+    padding: 0 5px;
+    color: #ffffff;
+}
+#workspaces button.active {
+    color: #a6e3a1; /* アクティブなワークスペースを緑色に */
+}
+
+/* 各モジュールの色分け（お好みで） */
+#clock {
+    color: #89b4fa; /* 水色 */
+}
+
+#mpris {
+    color: #f5c2e7;
+}
+#cpu {
+    color: #f9e2af; /* 黄色 */
+}
+
+#memory {
+    color: #fab387; /* オレンジ */
+}
+
+#pulseaudio {
+    color: #cba6f7; /* 紫 */
+}
+
+#network {
+    color: #a6e3a1; /* 緑 */
+}
+
+#custom-screenshot {
+    color: #f38ba8;
+}
+/* ~/.config/waybar/style.css */
+
+#custom-cava {
+    /* --- 縦に大きくする --- */
+    /* フォントサイズを上げることでバーが高くなります */
+    /* 現在のバーの高さ(32px)に合わせて 20px 〜 24px くらいがおすすめです */
+    font-size: 20px;
+    font-family: "UDEV Gothic 35NF";
+
+    /* --- 縁と背景を完全に消す --- */
+    background: transparent; /* 背景を透明に */
+    border: none;            /* 枠線 (縁) をなしに */
+    box-shadow: none;        /* 影もなしに */
+    
+    /* 余白の調整 (必要に応じて微調整してください) */
+    padding: 0px;
+    margin: 0px;
+    
+    /* 色はスクリプト側で指定しているのでここでは指定しません */
+}
+#window {
+    background-color: transparent; /* ウィンドウタイトルは背景なしで文字だけにする例 */
+    border: none;
+}
+

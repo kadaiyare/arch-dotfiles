@@ -1,0 +1,111 @@
+/* 全体のフォント設定 */
+* {
+    font-family: "UDEV Gothic 35NF", sans-serif;
+    font-weight: bold;
+}
+
+/* 本体設定 */
+.control-center {
+    background: rgba(30, 30, 46, 0.25); /* 以前より少し濃く */
+    border-radius: 20px;
+    border: 2px solid #11111b;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+.notification {
+    background: (30, 30, 46, 0.4);
+    border-radius: 15px;
+    border: 1px solid #11111b;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+
+}
+/* 共通のウィジェット背景 */
+.widget-title,
+.widget-dnd,
+.widget-mpris {
+    background: rgba(17, 17, 27,0.5);
+    margin: 5px 10px;
+    border-radius: 15px;
+}
+.widget-mpris-player {
+    padding:5px;
+    margin: 0;
+}
+.widget-mpris-album-art {
+    margin-right: 10px;
+}
+.widget-mpris-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #cdd6f4;
+}
+.widget-mpris-subtitle {
+    font-size: 0.9rem;
+    color: #a6adc8;
+}
+.widget-mpris-buttons {
+    margin-top: 5px;
+}
+.widget-mpris button {
+    padding: 5px;
+    border-radius: 6px;
+}
+.widget-volume,
+.widget-buttons-grid {
+    background: rgba(17, 17, 27, 0.2);
+    margin: 10px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+/* --- クイックボタン (Grid) --- */
+.widget-buttons-grid {
+    padding: 5px; /* 余白調整 */
+    font-size: 24px; /* アイコン大きく */
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+    background: #313244;
+    color: #cdd6f4;
+    border-radius: 12px;
+    margin: 5px;
+    padding: 10px 20px; /* ボタンのサイズ感 */
+    border: none;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+    background: #89b4fa; /* ホバー時に水色 */
+    color: #1e1e2e;
+}
+
+/* --- スライダー (音量・輝度) --- */
+.widget-volume trough,
+
+.widget-volume highlight,
+
+/* スライダーのラベル（アイコン） */
+.widget-volume label,
+
+/* --- その他 --- */
+/* 全消去ボタン */
+.widget-title button {
+    background: #f38ba8;
+    color: #1e1e2e;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+/* DND (おやすみモード) スイッチ */
+.widget-dnd {
+    margin-top: 5px;
+}
+.widget-dnd > switch {
+    background: #313244;
+    border-radius: 10px;
+}
+.widget-dnd > switch:checked {
+    background: #89b4fa;
+}
+
+.notification-row .notification-content .body-image {
+    display: none;
+}

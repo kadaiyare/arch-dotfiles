@@ -1,0 +1,16 @@
+mode=drun
+show=drun
+
+width=550
+height=400
+
+allow_images=true
+image_size=40
+
+always_use_cache=true
+
+prompt=Search...
+matching=contains
+insensitive=true
+
+location=center
