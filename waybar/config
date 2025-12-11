@@ -1,11 +1,12 @@
 {
     "layer": "top", // バーの表示位置 (top/bottom)
     "position": "top",
-    "height": 40, // バーの高さ（フォントサイズに合わせて調整）
+    "height": 48, // バーの高さ（各モジュールの最小高さに合わせて調整）
     "spacing": 3, // モジュール間の隙間
     
     // モジュールの配置
     "modules-left": [
+        "custom/arch-logo",
         "hyprland/workspaces",
         "clock",
         "custom/screenshot",
@@ -25,6 +26,11 @@
     ],
 
     // --- 各モジュールの詳細設定 ---
+    // Arch Linuxロゴ
+    "custom/arch-logo": {
+        "format": "<span size='20pt'></span>",
+        "tooltip-format": "Arch Linux"
+    },
 
     // ワークスペース（Hyprland専用）
     "hyprland/workspaces": {

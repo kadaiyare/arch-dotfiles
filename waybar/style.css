@@ -27,24 +27,32 @@ window#waybar {
 #window {
     background-color: #1e1e2e; /* 背景色 (ダークグレー) */
     color: #ffffff;
-    padding: 6px 6px;
+    padding: 4px 6px;
     margin-top: 2px;
-    margin-bottom: 2px;
-    margin-right: 8px; /* 右側に隙間を作る */
-    border-radius: 15px; /* 角を丸くする */
+    margin-bottom: 0px;
+    margin-right: 4px; /* 右側に隙間を作る */
+    border-radius: 12px; /* 角を丸くする */
     border: 2px solid #11111b; /* 枠線 */
 }
 #mpris {
     background-color: #1e1e2e; /* 背景色 (ダークグレー) */
     color: #ffffff;
-    padding: 5px 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 8px;
-    border-radius: 15px;
+    padding: 4px 10px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    border-radius: 12px;
     border: 2px solid #11111b;
 }
 
+#custom-arch-logo {
+    background: transparent; /* 枠線も背景も透明にする */
+    border: none;
+    box-shadow: none;
+    font-size: 24px; /* ロゴを少し大きく */
+    padding: 2px 6px;
+    margin-right: 4px;
+}
 /* 左端のワークスペースの調整 */
 #workspaces button {
     padding: 0 5px;
