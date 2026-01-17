@@ -3,7 +3,7 @@
     "position": "top",
     "height": 48, // バーの高さ（各モジュールの最小高さに合わせて調整）
     "spacing": 3, // モジュール間の隙間
-    
+
     // モジュールの配置
     "modules-left": [
         "custom/arch-logo",
@@ -46,17 +46,17 @@
         "format": "{}",
         "max-length": 15,
         "separate-outputs": true,
-        
+
         // ★ここが魔法の書き換えルールです
         "rewrite": {
             // 正規表現 (Regex) を使ってマッチさせます
-            
+
             // Firefox (タイトルに "Mozilla Firefox" が含まれる場合) -> Firefoxアイコン
             "(.*)Firefox": "<span size='20pt'></span>",
-            
+
             // VS Code (タイトルに "Visual Studio Code" が含まれる場合) -> VS Codeアイコン
             "(.*)Visual Studio Code": "<span size='20pt'>󰨞</span>",
-            
+
             // YouTube Music (タイトルに "YouTube Music" が含まれる場合) -> 再生ボタンアイコン
             "(.*)YouTube Music": "<span size='20pt'></span>",
 
@@ -120,7 +120,7 @@
 "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-muted": " Muted",
-        
+
         // ★追加: Bluetooth接続時はこのフォーマットが優先されます
         "format-bluetooth": "{volume}%",
         "format-bluetooth-muted": " Muted",
@@ -143,9 +143,15 @@
         "format-ethernet": "󰈀 Wired",
         "format-disconnected": "⚠ Disconnected",
         "tooltip-format": "{ifname} via {gwaddr}",
-        "on-click": "nm-connection-editor" // クリックで設定を開く（入っていれば）
+        "on-click": "nm-connection-editor", // クリックで設定を開く（入っていれば）
+
+        "rewrite": {
+            // テスト用: とりあえずSSIDが含まれていたら全部 "Home" に変えてみる
+            // これで変わるなら、正規表現のキャプチャ($1, $2)の問題だとわかります
+            ".*2G58208A3365E8.*": " Home"
+        }
     },
-    
+
     // バッテリー
     "battery": {
         "states": {

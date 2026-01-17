@@ -27,7 +27,7 @@ alias ls='eza --icons --git --group-directories-first'
 alias ll='eza --icons --git --group-directories-first -l'
 alias la='eza --icons --git --group-directories-first -la'
 alias ff='fastfetch'
-
+alias zed='zeditor'
 # --- External Plugins (System Installed) ---
 # パッケージマネージャ(/usr/share)に入っているプラグインは、
 # Oh My Zshの管理外なので、直接 source して読み込みます。
@@ -42,3 +42,27 @@ fi
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+export PATH="$HOME/bin:$PATH"
+
+# 1〜6世代からランダムにIDを決める
+POKE_GEN=$(shuf -i 1-6 -n 1)
+
+# 1/4096 の確率で色違いにする (512はお好みで変えてください)
+if [ $(shuf -i 1-100 -n 1) -eq 1 ]; then
+    # 当たり！色違いオプション(-s)をつける
+    pokemon-colorscripts --random $POKE_GEN -s
+else
+    # ハズレ...通常色
+    pokemon-colorscripts --random $POKE_GEN
+fi
+# Rust (Cargo) のパスを通す
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/taka/.opam/opam-init/init.zsh' ]] || source '/home/taka/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
