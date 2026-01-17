@@ -6,7 +6,7 @@
 
 /* 本体設定 */
 .control-center {
-    background: rgba(30, 30, 46, 0.25); /* 以前より少し濃く */
+    background: rgba(30, 30, 46, 0.75); /* 以前より少し濃く */
     border-radius: 20px;
     border: 2px solid #11111b;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
