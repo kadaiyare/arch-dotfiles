@@ -66,3 +66,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # This section can be safely removed at any time if needed.
 [[ ! -r '/home/taka/.opam/opam-init/init.zsh' ]] || source '/home/taka/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+eval "$(/home/taka/.local/bin/mise activate zsh)"
