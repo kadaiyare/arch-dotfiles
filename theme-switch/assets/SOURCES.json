@@ -1,0 +1,22 @@
+{
+  "palettes.json": {
+    "source": "https://github.com/catppuccin/palette/blob/main/palette.json",
+    "sha256": "263106756f2c6f9bcc18877ce1dea352dbb1c0aa2cd115f1adead8ed7fb35d6a"
+  },
+  "qt5ct/themes/catppuccin-latte-lavender.conf": {
+    "source": "https://github.com/catppuccin/qt5ct/blob/main/themes/catppuccin-latte-lavender.conf",
+    "sha256": "8eb890795e7d2fe185550eacb82dc073567b485edf79c264c8d8e7e3d4fcf907"
+  },
+  "qt5ct/themes/catppuccin-mocha-lavender.conf": {
+    "source": "https://github.com/catppuccin/qt5ct/blob/main/themes/catppuccin-mocha-lavender.conf",
+    "sha256": "60ae4c35ab7ac2831d30949eb8146ad73632bb7ee5f3194860870bae92cd9d66"
+  },
+  "kde/generated/color-schemes/CatppuccinLatteLavender.colors": {
+    "source": "https://github.com/catppuccin/kde/blob/main/generated/color-schemes/CatppuccinLatteLavender.colors",
+    "sha256": "b72aa5e529009d1b88e54c4a84212d58401978172c7a315824c7cbbcdf232333"
+  },
+  "kde/generated/color-schemes/CatppuccinMochaLavender.colors": {
+    "source": "https://github.com/catppuccin/kde/blob/main/generated/color-schemes/CatppuccinMochaLavender.colors",
+    "sha256": "d100716a75e1d4429d00e899ea6c98bc1b118c252bec89d1236e86123fe04d0e"
+  }
+}

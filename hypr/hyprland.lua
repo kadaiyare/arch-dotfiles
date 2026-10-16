@@ -26,7 +26,6 @@ hl.on("hyprland.start", function()
     hl.dispatch(hl.dsp.focus({ workspace = 2 }))
     for _, command in ipairs({
         "fcitx5 -d",
-        "~/.config/hypr/scripts/wallpaper_slideshow.sh",
         "~/.config/hypr/scripts/event_sounds.sh",
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP LANG",
         "libinput-gestures-setup start",
@@ -70,7 +69,7 @@ hl.config({
         },
         blur = {
             enabled = true,
-            size = 4,
+            size = 3,
             passes = 3,
             new_optimizations = true,
             ignore_opacity = true,
@@ -133,6 +132,11 @@ hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "a
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "easeOutQuint", style = "slide" })
 hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+-- Special workspaces animate independently of window creation/destruction.
+-- Negative vertical travel brings the terminal in from, and back out to, the top.
+hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 3, bezier = "easeOutQuint", style = "slidevert -100%" })
+hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 3, bezier = "easeInOutCubic", style =
+"slidevert -100%" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace", scale = 0.75 })
@@ -146,8 +150,31 @@ hl.bind(mainMod .. " + M", hl.dsp.exit())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+-- Choose a persistent background for the current workspace.
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("quickshell -c nucleus-shell ipc call desktop wallpapers"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+
+-- Nucleus: app shortcuts and a persistent drop-down terminal.
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.local/bin/nucleus-apps"))
+hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("~/.local/bin/nucleus-terminal"))
+hl.workspace_rule({
+    workspace = "special:nucleus-terminal",
+    -- The drop-down keeps the original palettes while normal foot tests readable glass colors.
+    on_created_empty =
+    "foot --config ~/.config/foot/dropdown.ini --app-id=nucleus-dropdown-terminal --title='Nucleus Terminal'",
+    animation = "slidevert -100%",
+})
+hl.window_rule({
+    name = "nucleus-dropdown-terminal",
+    match = { class = "^nucleus-dropdown-terminal$" },
+    workspace = "special:nucleus-terminal",
+    float = true,
+    size = "(monitor_w*0.92) (monitor_h*0.55)",
+    move = "(monitor_w*0.04) 60",
+    animation = "slide top",
+    opacity = "0.97 override 0.97 override",
+})
 
 for _, direction in ipairs({ "left", "right", "up", "down" }) do
     hl.bind(mainMod .. " + " .. direction, hl.dsp.focus({ direction = direction }))
@@ -170,10 +197,14 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 hl.bind(mainMod .. " + SHIFT + mouse:272", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+    { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
@@ -188,9 +219,9 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" "$HOME/Pictures/Sc
 -- Hold SUPER + SHIFT + arrows / HJKL to resize by 10 pixels.
 for _, resize in ipairs({
     { "right", 10, 0 }, { "left", -10, 0 },
-    { "up", 0, -10 }, { "down", 0, 10 },
+    { "up",    0,  -10 }, { "down", 0, 10 },
     { "l", 10, 0 }, { "h", -10, 0 },
-    { "k", 0, -10 }, { "j", 0, 10 },
+    { "k", 0,  -10 }, { "j", 0, 10 },
 }) do
     hl.bind(mainMod .. " + SHIFT + " .. resize[1],
         hl.dsp.window.resize({ x = resize[2], y = resize[3], relative = true }),
@@ -229,15 +260,42 @@ hl.window_rule({
     no_initial_focus = true,
 })
 
--- These remain multipliers of decoration opacity; do not add "override".
+-- Readability trial: 26.67% white * 0.90 keeps the former 24% focused white tint.
+hl.window_rule({
+    name = "opacity-foot",
+    match = { class = "^(foot)$" },
+    opacity = "0.90 override 0.80 override",
+})
+
+-- Zed adds a faint white background tint; window opacity also fades text and icons.
+hl.window_rule({
+    name = "opacity-zed",
+    match = { class = "^(dev.zed.Zed)$" },
+    opacity = "0.90 override 0.80 override",
+})
+
+-- Official Discord uses compositor opacity; keep its own theme and application settings.
+hl.window_rule({
+    name = "opacity-discord",
+    match = { class = "^(discord)$" },
+    opacity = "0.80 override 0.70 override",
+})
+
+-- Use the same compositor blur path for foot, Zed and Discord (size=3, passes=3).
+hl.window_rule({
+    name = "blur-foot-zed",
+    match = { class = "^(foot|dev[.]zed[.]Zed|discord)$" },
+    no_blur = false,
+    xray = false,
+})
+
+-- The remaining apps use the original opacity multipliers.
 for _, rule in ipairs({
-    { "foot", "^(foot)$", "0.79 0.79" },
-    { "dolphin", "^(org.kde.dolphin)$", "0.7 0.7" },
-    { "thunar", "^(thunar)$", "0.7 0.7" },
-    { "code", "^(Code)$", "0.7 0.7" },
-    { "vesktop", "^(vesktop)$", "0.75 0.75" },
-    { "firefox", "^(firefox)$", "0.85 0.85" },
-    { "zed", "^(dev.zed.Zed)$", "0.75 0.75" },
+    { "dolphin",       "^(org.kde.dolphin)$",                "0.7 0.7" },
+    { "thunar",        "^(thunar)$",                         "0.7 0.7" },
+    { "code",          "^(Code)$",                           "0.7 0.7" },
+    { "vesktop",       "^(vesktop)$",                        "0.75 0.75" },
+    { "firefox",       "^(firefox)$",                        "0.85 0.85" },
     { "youtube-music", "^(com.github.th_ch.youtube_music)$", "0.75 0.75" },
 }) do
     hl.window_rule({ name = "opacity-" .. rule[1], match = { class = rule[2] }, opacity = rule[3] })
@@ -251,6 +309,13 @@ for index, title in ipairs({ "File Operation Progress", "Properties", "Confirm t
     })
 end
 hl.window_rule({ name = "vesktop-workspace", match = { class = "^(vesktop)$" }, workspace = "1" })
+
+-- Keep Waydroid in the normal tiling layout (Android is set to 944x1009).
+hl.window_rule({
+    name = "waydroid-tiled",
+    match = { class = "^(Waydroid|waydroid[.].*)$" },
+    tile = true,
+})
 
 hl.layer_rule({
     name = "layerrule-1",
@@ -267,3 +332,6 @@ for index, namespace in ipairs({ "notifications", "swaync-control-center", "sway
         ignore_alpha = 0.5,
     })
 end
+
+-- Shared Mocha/Latte theme.
+dofile(os.getenv("HOME") .. "/.config/hypr/catppuccin-theme.lua")

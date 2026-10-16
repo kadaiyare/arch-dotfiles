@@ -5,8 +5,8 @@
 
 window {
     margin: 0px;
-    border: 2px solid #89b4fa;
-    background-color: rgba(30, 30, 46, 0.8);
+    border: 2px solid #1e66f5;
+    background-color: rgba(239, 241, 245, 0.8);
     border-radius: 15px;
 }
 
@@ -14,8 +14,8 @@ window {
     margin: 15px;
     padding: 15px;
     border: none;
-    background-color: #11111b;
-    color:#cdd6f4;
+    background-color: #dce0e8;
+    color:#4c4f69;
     border-radius: 15px;
 }
 
@@ -33,8 +33,8 @@ window {
 }
 
 #entry:selected {
-    background-color: #89b4fa;
-    color: #1e1e2e;
+    background-color: #1e66f5;
+    color: #eff1f5;
 }
 
 #img {

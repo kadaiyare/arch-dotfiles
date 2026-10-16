@@ -25,24 +25,24 @@ window#waybar {
 #tray,
 #custom-cava,
 #window {
-    background-color: #1e1e2e; /* 背景色 (ダークグレー) */
+    background-color: #eff1f5; /* 背景色 (ダークグレー) */
     color: #ffffff;
     padding: 4px 6px;
     margin-top: 2px;
     margin-bottom: 0px;
     margin-right: 4px; /* 右側に隙間を作る */
     border-radius: 12px; /* 角を丸くする */
-    border: 2px solid #11111b; /* 枠線 */
+    border: 2px solid #dce0e8; /* 枠線 */
 }
 #mpris {
-    background-color: #1e1e2e; /* 背景色 (ダークグレー) */
+    background-color: #eff1f5; /* 背景色 (ダークグレー) */
     color: #ffffff;
     padding: 4px 10px;
     margin-top: 2px;
     margin-bottom: 2px;
     margin-right: 4px;
     border-radius: 12px;
-    border: 2px solid #11111b;
+    border: 2px solid #dce0e8;
 }
 
 #custom-arch-logo {
@@ -59,35 +59,35 @@ window#waybar {
     color: #ffffff;
 }
 #workspaces button.active {
-    color: #a6e3a1; /* アクティブなワークスペースを緑色に */
+    color: #40a02b; /* アクティブなワークスペースを緑色に */
 }
 
 /* 各モジュールの色分け（お好みで） */
 #clock {
-    color: #89b4fa; /* 水色 */
+    color: #1e66f5; /* 水色 */
 }
 
 #mpris {
-    color: #f5c2e7;
+    color: #ea76cb;
 }
 #cpu {
-    color: #f9e2af; /* 黄色 */
+    color: #df8e1d; /* 黄色 */
 }
 
 #memory {
-    color: #fab387; /* オレンジ */
+    color: #fe640b; /* オレンジ */
 }
 
 #pulseaudio {
-    color: #cba6f7; /* 紫 */
+    color: #8839ef; /* 紫 */
 }
 
 #network {
-    color: #a6e3a1; /* 緑 */
+    color: #40a02b; /* 緑 */
 }
 
 #custom-screenshot {
-    color: #f38ba8;
+    color: #d20f39;
 }
 /* ~/.config/waybar/style.css */
 
