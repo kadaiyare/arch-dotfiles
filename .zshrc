@@ -1,14 +1,9 @@
-# --- Powerlevel10k Instant Prompt ---
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # --- Oh My Zsh Setup ---
 # Oh My Zsh のパス設定 (一般的環境に合わせています)
 export ZSH="$HOME/.oh-my-zsh"
 
-# テーマはPowerlevel10k側で管理するので、ここは無効にしておくか "robbyrussell" のままでOK
-ZSH_THEME="robbyrussell"
+# プロンプトは Starship で管理する
+ZSH_THEME=""
 
 # 標準プラグイン (Oh My Zshに最初から入っているもの)
 # ※ zsh-autosuggestions と zsh-syntax-highlighting はここから外して下で読み込みます
@@ -18,9 +13,8 @@ plugins=(git aliases copypath history docker github composer laravel brew zsh-co
 # インストール済みであれば、このパスにファイルがあるはずです
 source $ZSH/oh-my-zsh.sh
 
-# --- Powerlevel10k Theme Configuration ---
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# --- Starship: Catppuccin Powerline ---
+eval "$(starship init zsh)"
 
 # --- Aliases ---
 alias ls='eza --icons --git --group-directories-first'

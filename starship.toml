@@ -1,0 +1,233 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Catppuccin Powerline: official Latte light palette and two lines.
+# The terminal's existing foreground, transparency, and window design stay intact.
+format = """
+[](red)\
+$os\
+$username\
+[](fg:red bg:peach)\
+${custom.folder}\
+$directory\
+[](fg:peach bg:yellow)\
+$git_branch\
+$git_status\
+$git_metrics\
+$package\
+${custom.framework}\
+$nodejs\
+$bun\
+$deno\
+$rust\
+$python\
+$golang\
+$php\
+$ocaml\
+$lua\
+[](fg:yellow bg:lavender)\
+$time\
+[](lavender) \
+$cmd_duration\
+$jobs\
+$status\
+$line_break\
+$character"""
+
+palette = 'catppuccin_latte'
+add_newline = true
+
+[os]
+disabled = false
+style = 'fg:crust bg:red'
+format = '[$symbol]($style)'
+
+[os.symbols]
+Arch = '󰣇'
+
+[username]
+show_always = true
+style_user = 'fg:crust bg:red'
+style_root = 'fg:crust bg:red bold'
+format = '[ $user ]($style)'
+
+[directory]
+style = 'fg:crust bg:peach'
+format = '[ $path ]($style)[$read_only]($read_only_style)'
+repo_root_format = '[ $before_root_path$repo_root$path ]($style)[$read_only]($read_only_style)'
+repo_root_style = 'fg:crust bg:peach'
+before_repo_root_style = 'fg:crust bg:peach'
+read_only = ' 󰌾 '
+read_only_style = 'fg:red bg:peach'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[custom.folder]
+command = '/usr/bin/python3 -S /home/taka/.config/starship/context.py folder'
+when = true
+shell = ['/bin/sh']
+style = 'fg:crust bg:peach'
+format = '[ $output]($style)'
+
+[custom.framework]
+command = '/usr/bin/python3 -S /home/taka/.config/starship/context.py framework'
+when = true
+shell = ['/bin/sh']
+style = 'fg:crust bg:yellow'
+format = '([ $output ]($style))'
+
+[git_branch]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = 'fg:crust bg:yellow'
+format = '[($all_status$ahead_behind )]($style)'
+modified = '${count}'
+staged = '${count}'
+untracked = '${count}'
+deleted = '✘${count}'
+renamed = '»${count}'
+conflicted = '=${count}'
+stashed = '≡${count}'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+
+[git_state]
+style = 'fg:crust bg:yellow'
+format = '[ $state( $progress_current/$progress_total) ]($style)'
+rebase = ' REBASE'
+merge = ' MERGE'
+revert = ' REVERT'
+cherry_pick = ' PICK'
+bisect = ' BISECT'
+am = ' APPLY'
+am_or_rebase = ' APPLY/REBASE'
+
+[git_metrics]
+disabled = false
+only_nonzero_diffs = true
+ignore_submodules = true
+added_style = 'fg:crust bg:yellow'
+deleted_style = 'fg:crust bg:yellow'
+format = '([ $added ]($added_style))([ $deleted ]($deleted_style))'
+
+# Project metadata and detected languages share the existing yellow band.
+# Language symbols only: avoid filling narrow terminals with runtime versions.
+[package]
+symbol = '󰏗 '
+style = 'fg:crust bg:yellow'
+format = '[ $symbol$version ]($style)'
+display_private = true
+
+[nodejs]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[bun]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[deno]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[rust]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[python]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol( $virtualenv) ]($style)'
+
+[golang]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[php]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[ocaml]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[lua]
+symbol = ''
+style = 'fg:crust bg:yellow'
+format = '[ $symbol ]($style)'
+
+[time]
+disabled = false
+time_format = '%R'
+style = 'fg:crust bg:lavender'
+format = '[  $time ]($style)'
+
+[cmd_duration]
+min_time = 2000
+show_milliseconds = false
+show_notifications = false
+style = 'yellow'
+format = '[󱎫 $duration]($style) '
+
+[jobs]
+symbol = ' '
+style = 'blue'
+symbol_threshold = 1
+number_threshold = 1
+format = '[$symbol$number]($style) '
+
+[status]
+disabled = false
+symbol = ' '
+style = 'red'
+format = '[$symbol$status]($style) '
+
+[line_break]
+disabled = false
+
+[character]
+success_symbol = '[❯](green)'
+error_symbol = '[❯](red)'
+vimcmd_symbol = '[❮](green)'
+vimcmd_replace_one_symbol = '[❮](mauve)'
+vimcmd_replace_symbol = '[❮](mauve)'
+vimcmd_visual_symbol = '[❮](yellow)'
+
+[palettes.catppuccin_latte]
+rosewater = '#dc8a78'
+flamingo = '#dd7878'
+pink = '#ea76cb'
+mauve = '#8839ef'
+red = '#d20f39'
+maroon = '#e64553'
+peach = '#fe640b'
+yellow = '#df8e1d'
+green = '#40a02b'
+teal = '#179299'
+sky = '#04a5e5'
+sapphire = '#209fb5'
+blue = '#1e66f5'
+lavender = '#7287fd'
+text = '#4c4f69'
+subtext1 = '#5c5f77'
+subtext0 = '#6c6f85'
+overlay2 = '#7c7f93'
+overlay1 = '#8c8fa1'
+overlay0 = '#9ca0b0'
+surface2 = '#acb0be'
+surface1 = '#bcc0cc'
+surface0 = '#ccd0da'
+base = '#eff1f5'
+mantle = '#e6e9ef'
+crust = '#dce0e8'

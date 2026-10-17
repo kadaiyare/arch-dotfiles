@@ -1,0 +1,225 @@
+/* Catppuccin Latte / white frosted glass, matching foot and Zed.
+ * Only surfaces, text and controls are recolored. Artwork and video stay intact.
+ * The transparent-player plugin supplies a transparent native window.
+ */
+:root,
+html,
+body,
+ytmusic-app {
+  color-scheme: light !important;
+  --latte-text: #4c4f69;
+  --latte-subtext: #5c5f77;
+  --latte-muted: #6c6f85;
+  --latte-lavender: #7287fd;
+  --latte-mauve: #8839ef;
+  --latte-blue: #1e66f5;
+  --latte-red: #d20f39;
+  --latte-glass: rgba(255, 255, 255, 0.32);
+  --latte-surface: rgba(255, 255, 255, 0.18);
+  --latte-hover: rgba(114, 135, 253, 0.16);
+  --latte-popup: rgba(239, 241, 245, 0.96);
+  --latte-edge: rgba(255, 255, 255, 0.5);
+
+  --ytmusic-background: transparent !important;
+  --ytmusic-color-black1: transparent !important;
+  --ytmusic-color-black2: var(--latte-surface) !important;
+  --ytmusic-color-black3: rgba(255, 255, 255, 0.30) !important;
+  --ytmusic-color-black4: rgba(255, 255, 255, 0.42) !important;
+  --ytmusic-color-blackpure: transparent !important;
+  --ytmusic-color-white1: var(--latte-text) !important;
+  --ytmusic-color-white2: var(--latte-text) !important;
+  --ytmusic-color-white3: var(--latte-subtext) !important;
+  --ytmusic-color-white4: var(--latte-muted) !important;
+  --ytmusic-color-grey1: var(--latte-text) !important;
+  --ytmusic-color-grey2: var(--latte-subtext) !important;
+  --ytmusic-color-grey3: var(--latte-muted) !important;
+  --ytmusic-color-grey4: #7c7f93 !important;
+  --ytmusic-color-grey5: #8c8fa1 !important;
+  --ytmusic-color-light1: var(--latte-text) !important;
+  --ytmusic-color-light2: var(--latte-subtext) !important;
+  --ytmusic-color-medium1: var(--latte-muted) !important;
+  --ytmusic-color-medium2: #7c7f93 !important;
+  --ytmusic-color-dark1: var(--latte-surface) !important;
+  --ytmusic-color-dark2: var(--latte-surface) !important;
+  --ytmusic-color-red1: var(--latte-red) !important;
+  --ytmusic-color-brand: var(--latte-lavender) !important;
+  --ytmusic-brand-background-solid: var(--latte-lavender) !important;
+  --ytmusic-brand-background: var(--latte-hover) !important;
+  --ytmusic-brand-link-text: var(--latte-blue) !important;
+  --ytmusic-text-primary: var(--latte-text) !important;
+  --ytmusic-text-secondary: var(--latte-subtext) !important;
+  --ytmusic-search-background: rgba(255, 255, 255, 0.38) !important;
+  --ytmusic-search-border: rgba(76, 79, 105, 0.15) !important;
+  --ytmusic-general-background-a: transparent !important;
+  --ytmusic-general-background-b: var(--latte-surface) !important;
+  --ytmusic-general-background-c: var(--latte-surface) !important;
+  --ytmusic-menu-background: var(--latte-popup) !important;
+  --ytmusic-player-bar-background: rgba(255, 255, 255, 0.38) !important;
+  --yt-spec-base-background: transparent !important;
+  --yt-spec-raised-background: var(--latte-popup) !important;
+  --yt-spec-menu-background: var(--latte-popup) !important;
+  --yt-spec-text-primary: var(--latte-text) !important;
+  --yt-spec-text-secondary: var(--latte-subtext) !important;
+  --yt-spec-text-disabled: #8c8fa1 !important;
+  --yt-spec-text-primary-inverse: #eff1f5 !important;
+  --yt-spec-icon-active-other: var(--latte-text) !important;
+  --yt-spec-icon-inactive: var(--latte-subtext) !important;
+  --yt-spec-call-to-action: var(--latte-blue) !important;
+  --yt-spec-brand-button-background: var(--latte-lavender) !important;
+  --yt-spec-brand-background-primary: transparent !important;
+  --yt-spec-brand-background-secondary: var(--latte-surface) !important;
+  --yt-spec-badge-chip-background: var(--latte-surface) !important;
+  --yt-spec-button-chip-background-hover: var(--latte-hover) !important;
+  --yt-spec-touch-response: var(--latte-lavender) !important;
+  --yt-spec-10-percent-layer: rgba(76, 79, 105, 0.10) !important;
+  --yt-spec-outline: rgba(76, 79, 105, 0.18) !important;
+  --paper-item-icon-color: var(--latte-text) !important;
+  --paper-listbox-background-color: var(--latte-popup) !important;
+  --paper-dialog-background-color: var(--latte-popup) !important;
+  --paper-input-container-color: var(--latte-muted) !important;
+  --paper-input-container-focus-color: var(--latte-lavender) !important;
+  --paper-input-container-input-color: var(--latte-text) !important;
+  --paper-slider-active-color: var(--latte-lavender) !important;
+  --paper-slider-knob-color: var(--latte-lavender) !important;
+  --paper-slider-container-color: rgba(76, 79, 105, 0.16) !important;
+  --paper-progress-active-color: var(--latte-lavender) !important;
+  --ytmd-transparent-player-opacity: 0.32 !important;
+  --ytmd-transparent-player-transparency-color: #ffffff !important;
+  --ytmd-transparent-player-transparent-background: var(--latte-glass) !important;
+  --ytmd-transparent-player-transparent-background-dark: rgba(255, 255, 255, 0.38) !important;
+  --ytmd-transparent-player-backdrop-blur: blur(16px) !important;
+}
+
+html {
+  background: transparent !important;
+}
+
+/* Polymer components can reset these variables locally instead of inheriting. */
+ytmusic-app * {
+  --ytmusic-color-white1: #4c4f69 !important;
+  --ytmusic-color-white2: #5c5f77 !important;
+  --ytmusic-color-white3: #6c6f85 !important;
+  --ytmusic-primary-text-color: #4c4f69 !important;
+  --ytmusic-secondary-text-color: #5c5f77 !important;
+  --paper-tabs-selection-bar-color: #7287fd !important;
+}
+
+ytmusic-player-bar .subtitle,
+ytmusic-player-bar .subtitle a,
+ytmusic-player-bar .subtitle span,
+ytmusic-guide-entry-renderer .subtitle,
+ytmusic-queue-header-renderer .title,
+tp-yt-paper-tab .tab-content {
+  color: var(--latte-subtext) !important;
+}
+
+tp-yt-paper-tab.iron-selected .tab-content {
+  color: var(--latte-mauve) !important;
+}
+
+ytmusic-chip-cloud-chip-renderer .text {
+  color: var(--latte-text) !important;
+}
+
+body,
+body.transparent-background-color {
+  color: var(--latte-text) !important;
+  background: var(--latte-glass) !important;
+}
+
+ytmusic-app,
+ytmusic-app-layout,
+#layout,
+ytmusic-browse-response,
+ytmusic-player-page,
+ytmusic-guide-renderer,
+#guide-wrapper,
+#mini-guide-background,
+#player-page,
+ytmusic-player-bar {
+  background-color: transparent !important;
+}
+
+#nav-bar-background,
+#player-bar-background,
+#ytmd-title-bar-main-panel {
+  background: rgba(255, 255, 255, 0.38) !important;
+  border-color: var(--latte-edge) !important;
+  color: var(--latte-text) !important;
+}
+
+ytmusic-nav-bar,
+ytmusic-player-bar,
+ytmusic-search-box,
+ytmusic-guide-entry-renderer,
+ytmusic-mini-guide-entry-renderer {
+  color: var(--latte-text) !important;
+}
+
+ytmusic-search-box input,
+ytmusic-search-box #input {
+  color: var(--latte-text) !important;
+  caret-color: var(--latte-mauve) !important;
+}
+
+ytmusic-search-box input::placeholder {
+  color: var(--latte-muted) !important;
+  opacity: 1 !important;
+}
+
+ytmusic-menu-popup-renderer,
+ytmusic-multi-page-menu-renderer,
+tp-yt-paper-dialog,
+tp-yt-paper-listbox,
+ytmusic-search-suggestions-section,
+ytmusic-search-suggestions-section-renderer {
+  background: var(--latte-popup) !important;
+  color: var(--latte-text) !important;
+  border-color: var(--latte-edge) !important;
+}
+
+ytmusic-guide-entry-renderer[active],
+ytmusic-guide-entry-renderer[is-selected],
+ytmusic-mini-guide-entry-renderer[active],
+ytmusic-chip-cloud-chip-renderer[is-selected],
+ytmusic-chip-cloud-chip-renderer[aria-selected="true"] {
+  background: var(--latte-hover) !important;
+  color: var(--latte-mauve) !important;
+}
+
+ytmusic-responsive-list-item-renderer:hover,
+ytmusic-guide-entry-renderer:hover,
+ytmusic-mini-guide-entry-renderer:hover,
+ytmusic-menu-navigation-item-renderer:hover,
+ytmusic-menu-service-item-renderer:hover {
+  background-color: var(--latte-hover) !important;
+}
+
+ytmusic-play-button-renderer,
+ytmusic-play-button-renderer yt-icon,
+ytmusic-play-button-renderer tp-yt-iron-icon {
+  /* Preserve high-contrast controls over album art. */
+  color: #ffffff !important;
+  --ytmusic-color-white1: #ffffff !important;
+}
+
+ytmusic-player-bar #progress-bar,
+ytmusic-player-bar #volume-slider {
+  --paper-slider-active-color: var(--latte-lavender) !important;
+  --paper-slider-knob-color: var(--latte-lavender) !important;
+  --paper-slider-container-color: rgba(76, 79, 105, 0.16) !important;
+}
+
+::selection {
+  color: #4c4f69;
+  background: rgba(114, 135, 253, 0.28);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(114, 135, 253, 0.52) !important;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}

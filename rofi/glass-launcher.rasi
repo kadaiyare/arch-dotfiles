@@ -1,0 +1,126 @@
+configuration {
+    modes: "drun";
+    show-icons: true;
+    icon-theme: "Papirus-Light";
+    font: "UDEV Gothic 35DZNFLG 18";
+    terminal: "foot";
+    matching: "fuzzy";
+    sorting-method: "fzf";
+    sort: true;
+    disable-history: false;
+    max-history-size: 50;
+    drun-use-desktop-cache: false;
+    case-sensitive: false;
+    drun-display-format: "{name}";
+    drun-match-fields: "name,generic,exec,keywords";
+    sidebar-mode: false;
+    cycle: true;
+}
+
+/* Use one translucent white base; keep icons and text fully opaque. */
+* {
+    background-color: transparent;
+    text-color: #202532;
+    border-color: #ffffff80;
+    highlight: bold underline;
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    width: 720px;
+    height: 480px;
+    padding: 0px;
+    border: 1px;
+    border-radius: 16px;
+    background-color: #ffffff38;
+    children: [ mainbox ];
+}
+
+mainbox {
+    padding: 16px;
+    spacing: 12px;
+    children: [ inputbar, listview, textbox-hint ];
+}
+
+inputbar {
+    expand: false;
+    padding: 10px 12px;
+    spacing: 12px;
+    border: 1px;
+    border-radius: 11px;
+    background-color: #ffffff28;
+    children: [ entry ];
+}
+
+entry {
+    text-color: #202532;
+    placeholder: "名前を入力して検索…";
+    placeholder-color: #414857;
+    cursor: text;
+}
+
+listview {
+    border: 0px;
+    padding: 0px;
+    columns: 4;
+    fixed-columns: true;
+    lines: 3;
+    layout: vertical;
+    flow: horizontal;
+    fixed-height: true;
+    dynamic: false;
+    scrollbar: false;
+    spacing: 10px;
+}
+
+element {
+    orientation: vertical;
+    children: [ element-icon, element-text ];
+    padding: 10px 6px;
+    spacing: 8px;
+    border: 1px;
+    border-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+element normal.normal, element alternate.normal {
+    background-color: transparent;
+    text-color: #202532;
+}
+
+element selected.normal, element selected.active {
+    background-color: #ffffff80;
+    border-color: #ffffffb3;
+    text-color: #202532;
+}
+
+element-icon {
+    size: 48px;
+    horizontal-align: 0.5;
+    cursor: inherit;
+}
+
+element-text {
+    font: "UDEV Gothic 35DZNFLG 12";
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    text-color: inherit;
+    cursor: inherit;
+}
+
+textbox-hint {
+    expand: false;
+    str: "矢印キー 選択   Enter 起動   Esc 閉じる";
+    font: "UDEV Gothic 35DZNFLG 11";
+    text-color: #414857;
+    padding: 5px 4px 0px;
+}
+
+error-message {
+    padding: 16px;
+    background-color: #ffffffe6;
+    text-color: #202532;
+}

@@ -1,0 +1,33 @@
+/* Share the glass palette, application matching, and launch history. */
+@import "glass-launcher.rasi"
+
+window {
+    width: 620px;
+    height: 380px;
+}
+
+listview {
+    columns: 1;
+    lines: 5;
+    flow: vertical;
+    spacing: 5px;
+}
+
+element {
+    orientation: horizontal;
+    padding: 6px 10px;
+    spacing: 12px;
+}
+
+element-icon {
+    size: 28px;
+}
+
+element-text {
+    font: "UDEV Gothic 35DZNFLG 16";
+    horizontal-align: 0.0;
+}
+
+textbox-hint {
+    str: "↑↓ 選択   Enter 起動   Esc 閉じる";
+}

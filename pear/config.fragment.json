@@ -1,0 +1,14 @@
+{
+  "options": {
+    "themes": [
+      "/home/taka/.config/YouTube Music/themes/catppuccin-latte-glass.css"
+    ]
+  },
+  "plugins": {
+    "transparent-player": {
+      "enabled": true,
+      "opacity": 0,
+      "type": "none"
+    }
+  }
+}

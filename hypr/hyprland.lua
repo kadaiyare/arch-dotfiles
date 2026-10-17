@@ -4,7 +4,7 @@
 
 local terminal = "foot"
 local fileManager = "dolphin"
-local menu = "wofi --show drun"
+local menu = "rofi -config ~/.config/rofi/glass-launcher.rasi -show drun"
 local mainMod = "SUPER"
 
 -- Monitors: internal display on the left, HDMI display on the right.
@@ -63,14 +63,16 @@ hl.config({
         inactive_opacity = 0.65,
         shadow = {
             enabled = true,
-            range = 4,
+            range = 18,
             render_power = 3,
-            color = "rgba(1a1a1aee)",
+            color = "rgba(1a1a1a4d)",
         },
         blur = {
             enabled = true,
-            size = 3,
+            size = 4,
             passes = 3,
+            noise = 0.008,
+            vibrancy = 0.10,
             new_optimizations = true,
             ignore_opacity = true,
         },
@@ -260,18 +262,26 @@ hl.window_rule({
     no_initial_focus = true,
 })
 
--- Readability trial: 26.67% white * 0.90 keeps the former 24% focused white tint.
+-- Frosted glass: applications tint the background; keep text fully opaque.
 hl.window_rule({
     name = "opacity-foot",
     match = { class = "^(foot)$" },
-    opacity = "0.90 override 0.80 override",
+    opacity = "1.0 override 1.0 override",
 })
 
--- Zed adds a faint white background tint; window opacity also fades text and icons.
+-- Zed supplies its own 32% white background tint.
 hl.window_rule({
     name = "opacity-zed",
     match = { class = "^(dev.zed.Zed)$" },
-    opacity = "0.90 override 0.80 override",
+    opacity = "1.0 override 1.0 override",
+})
+
+-- A thin glass edge independent of the shared Catppuccin border colors.
+hl.window_rule({
+    name = "glass-edge-foot-zed",
+    match = { class = "^(foot|dev[.]zed[.]Zed)$" },
+    border_size = 1,
+    border_color = "rgba(ffffff80)",
 })
 
 -- Official Discord uses compositor opacity; keep its own theme and application settings.
@@ -281,7 +291,7 @@ hl.window_rule({
     opacity = "0.80 override 0.70 override",
 })
 
--- Use the same compositor blur path for foot, Zed and Discord (size=3, passes=3).
+-- Use the same compositor blur path for foot, Zed and Discord (size=4, passes=3).
 hl.window_rule({
     name = "blur-foot-zed",
     match = { class = "^(foot|dev[.]zed[.]Zed|discord)$" },
@@ -289,14 +299,35 @@ hl.window_rule({
     xray = false,
 })
 
+-- Pear supplies its own white glass tint; keep artwork and text crisp.
+hl.window_rule({
+    name = "glass-pear-music",
+    match = { class = "^(com[.]github[.]th[-_]ch[.]youtube[-_]music|pear-desktop)$" },
+    -- Electron advertises an opaque region; a 0.1% alpha reduction activates blur.
+    opacity = "0.999 override 0.999 override",
+    no_blur = false,
+    xray = false,
+    border_size = 1,
+    border_color = "rgba(ffffff80)",
+})
+
+-- Thunar uses GTK background alpha; keep file names and icons fully opaque.
+hl.window_rule({
+    name = "glass-thunar",
+    match = { class = "^(thunar|Thunar)$" },
+    opacity = "1.0 override 1.0 override",
+    no_blur = false,
+    xray = false,
+    border_size = 1,
+    border_color = "rgba(ffffff80)",
+})
+
 -- The remaining apps use the original opacity multipliers.
 for _, rule in ipairs({
     { "dolphin",       "^(org.kde.dolphin)$",                "0.7 0.7" },
-    { "thunar",        "^(thunar)$",                         "0.7 0.7" },
     { "code",          "^(Code)$",                           "0.7 0.7" },
     { "vesktop",       "^(vesktop)$",                        "0.75 0.75" },
     { "firefox",       "^(firefox)$",                        "0.85 0.85" },
-    { "youtube-music", "^(com.github.th_ch.youtube_music)$", "0.75 0.75" },
 }) do
     hl.window_rule({ name = "opacity-" .. rule[1], match = { class = rule[2] }, opacity = rule[3] })
 end
@@ -323,6 +354,30 @@ hl.layer_rule({
     animation = "popin",
     blur = true,
     ignore_alpha = 0.5,
+})
+hl.layer_rule({
+    name = "glass-app-launcher",
+    match = { namespace = "rofi" },
+    animation = "popin",
+    blur = true,
+    ignore_alpha = 0.01,
+    xray = false,
+})
+-- Blur only the translucent bar background, keeping its text fully opaque.
+hl.layer_rule({
+    name = "glass-nucleus-bar",
+    match = { namespace = "^nucleus:bar$" },
+    blur = true,
+    ignore_alpha = 0.01,
+    xray = false,
+})
+-- Exclude fully transparent overlay pixels so only the side panels get blurred.
+hl.layer_rule({
+    name = "glass-nucleus-sidebars",
+    match = { namespace = "^nucleus:sidebar(Left|Right)$" },
+    blur = true,
+    ignore_alpha = 0.01,
+    xray = false,
 })
 for index, namespace in ipairs({ "notifications", "swaync-control-center", "swaync-notification-window" }) do
     hl.layer_rule({

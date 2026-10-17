@@ -1,0 +1,93 @@
+/* White glass for Thunar only. Text and icons retain their full opacity.
+ * Catppuccin Latte text, lavender selections, existing Papirus-Light icons.
+ */
+window.thunar.background {
+  background-color: rgba(255, 255, 255, 0.32);
+  background-image: none;
+  color: #4c4f69;
+}
+
+.thunar label,
+.thunar button,
+.thunar entry,
+.thunar .view {
+  color: #4c4f69;
+  text-shadow: none;
+}
+
+/* Clear the opaque surfaces between the window and the file view. */
+.thunar notebook,
+.thunar notebook > stack,
+.thunar .standard-view,
+.thunar .standard-view .view,
+.thunar .sidebar .view {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* File area is a little whiter than the sidebar (about 42% combined). */
+.thunar .standard-view {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.thunar scrolledwindow.sidebar {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(76, 79, 105, 0.12);
+}
+
+.thunar menubar,
+.thunar toolbar,
+.thunar statusbar,
+.thunar notebook > header {
+  background-color: rgba(255, 255, 255, 0.18);
+  background-image: none;
+  color: #4c4f69;
+  border-color: rgba(76, 79, 105, 0.12);
+  box-shadow: none;
+}
+
+.thunar entry {
+  background-color: rgba(255, 255, 255, 0.52);
+  background-image: none;
+  border-color: rgba(114, 135, 253, 0.28);
+  caret-color: #8839ef;
+}
+
+.thunar .view:hover,
+.thunar button:hover,
+.thunar menubar > menuitem:hover {
+  background-color: rgba(114, 135, 253, 0.12);
+  background-image: none;
+  box-shadow: none;
+}
+
+.thunar .view:selected,
+.thunar .view:selected:hover,
+.thunar .standard-view .view:selected,
+.thunar .sidebar .view:selected,
+.thunar button:checked,
+.thunar notebook > header tab:checked {
+  background-color: rgba(114, 135, 253, 0.28);
+  background-image: none;
+  color: #4c4f69;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.thunar .view:selected label,
+.thunar button:checked label,
+.thunar notebook > header tab:checked label {
+  color: #4c4f69;
+}
+
+.thunar .view text,
+.thunar .view cell {
+  background-color: transparent;
+}
+
+/* Popups keep a solid reading surface above the translucent main window. */
+.thunar menu,
+.thunar popover {
+  background-color: rgba(239, 241, 245, 0.97);
+  color: #4c4f69;
+}

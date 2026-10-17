@@ -51,49 +51,82 @@ Super+Vの実行順、画面サイズの75%計算（通常・HiDPI・回転）�
   保存名の `Screenshot=` プレフィックスは維持。
 
 既存のモニター・見た目・アニメーション・入力・ルールの値を引き継いでいます。
-footとZed以外のアプリ別の透明度は従来どおり全体の透明度に乗算しています。
+PearとThunarもアプリ側の背景透過を使い、その他のアプリは従来の不透明度設定を維持します。
 Super+Vは押した時点の画面寸法から論理ピクセルで75%を計算します。
 自動起動は `hyprland.start` イベントに登録し、通常の設定リロード時には起動しません。
 旧 `.conf` の設定・誤記は、移行前の状態へ戻せるよう変更していません。
 
-## footの背景透過の実験
+## foot・Zedのすりガラス設定
 
-通常のfoot（app ID `foot`）は視認性の実験として、Hyprland側で `0.90 override 0.80 override`、
-`~/.config/foot/foot.ini` の両カラーテーマで `background=ffffff`、`alpha=0.2666667`、
-`alpha-mode=matching` を指定しています。合成後の白は操作中約24%、非アクティブ時約21.3%で、
-従来の24%／21%とほぼ同じです。文字の不透明度は操作中90%、非アクティブ時80%に上げています。
-本文色は `#202532` にし、ANSI色も白いガラス向けの濃い配色を両テーマに設定しています。
-フォントと共通ブラー（size=3、passes=3）はそのままです。
+footとZedはHyprland側を `1.0 override 1.0 override` にし、文字とアイコンを
+不透明に保ちます。白い背景の不透明度だけをアプリ側で約32%に設定しています。
+操作中／非アクティブ時で不透明度は変わりません。
+
+`../foot/foot.ini` の両カラーテーマは `background=ffffff`、`alpha=0.32`、
+`alpha-mode=matching`、`blur=yes` です。本文は公式Catppuccin Latteの `#4c4f69`、
+ANSI色も公式Latteに揃えています。スクロール倍率は `multiplier=9.0` です。
 テーマ切り替え時にもこの配色とalphaを維持します。
-Hyprland 0.56の背景効果プロトコルに対応するため、footの両カラーテーマで
-`blur=yes` を指定しています。これは新しく起動したfootから反映されます。
-footとZedには共通の `blur-foot-zed` ルールで `no_blur=false`、`xray=false` を明示しています。
+恒久的な設定の読み込みには新しいfootウィンドウを開いてください。
+既存ウィンドウの背景はOSC 11の `[32]#ffffff` でも変更できます。
+Nucleusのドロップダウン端末は `../foot/dropdown.ini` で元のCatppuccin配色と
+alpha=1を読み込み、従来のHyprland側の不透明度0.97を維持します。
 
-foot設定の恒久的な反映には新しいウィンドウを開いてください。
-Nucleusのドロップダウン端末は `~/.config/foot/dropdown.ini` で元のCatppuccin配色とalpha=1を読み込み、
-従来のHyprland側の不透明度0.97を維持します。
+Zedは `../zed/settings.json` の `theme_overrides` でLatteとMochaの両方に
+`background.appearance=transparent` を設定しています。共通背景、タイトルバー
+（非アクティブ時も含む）、ステータスバーは `#ffffff52`（約32%の白）です。
+エディター、ガター、パネル、タブ、`surface.background`、`panel.overlay_background` は
+`#00000000` として白の重なりを避けています。
+文字色・構文色も公式Catppuccin Latteに揃え、本文は `#4c4f69`、キーワードは
+紫 `#8839ef`、関数は青 `#1e66f5`、文字列は緑 `#40a02b`、数値はオレンジ `#fe640b` です。
 
-## Zedの背景透過
+foot・Zed専用の `glass-edge-foot-zed` ルールで枠を1px・半透明の白
+（`rgba(ffffff80)`）にしています。共有Catppuccinテーマの枠色より優先されます。
+共通の `blur-foot-zed` ルールで `no_blur=false`、`xray=false` を明示しています。
 
-Zedは視認性の調整としてHyprland側を `0.90 override 0.80 override` とし、アプリ側でも背景を透過します。
-`~/.config/zed/settings.json` の `theme_overrides` にLatteとMochaの両方を設定し、
-`background.appearance` は `transparent` です。共通背景 `background`、
-タイトルバー（非アクティブ時も含む）、ステータスバーは `#ffffff44` とし、
-約27%の薄い白を加えています。エディター、ガター、パネル、タブ、
-`surface.background`、`panel.overlay_background` は `#00000000` とし、
-白が重ならず、本文とヘッダー／フッターの透け方が揃うようにしています。
-基本の文字とアイコン色を `#202532`、補助色を `#414857`／`#707887` にして、
-ライト／ダークテーマの両方で読みやすくしています。シンタックスハイライトの色はテーマのままです。
+共通ブラーは `size=4`、`passes=3`、`noise=0.008`、`vibrancy=0.10` です。
+影は範囲18・色 `rgba(1a1a1a4d)`（不透明度約30%）です。
+ブラーと影の変更は他のウィンドウにも適用されます。
 
-文字にはHyprland側の不透明度（操作中90%、非アクティブ時80%）がかかります。
-共通のブラーはsize=3、passes=3です。sizeを4から3に弱めた変更は他のウィンドウにも適用されます。
+## Super+Rのアプリランチャー
+
+Super+RはRofi 2.0のWaylandランチャーを起動します。
+テーマは `../rofi/glass-launcher.rasi` で、
+`~/.config/rofi/glass-launcher.rasi` からリンクしています。
+背景は白22%（`#ffffff38`）、枠は半透明の白1pxで、文字とアイコンは不透明です。
+Hyprlandの `glass-app-launcher` レイヤールールでブラーを適用します。
+`ignore_alpha=0.01` で透明な角を除外し、薄い背景にもブラーをかけます。
+
+中央に720×480px・4列×3行のアイコングリッドを表示します。
+アイコンは48px、名前は下部に中央揃えで表示し、左から右へ並べます。
+検索欄は入力欄のみで、左側の「アプリ」ラベルは表示しません。
+起動履歴を有効にし、未入力時はRofiからの起動頻度が高いアプリを先頭に表示します。
+初期履歴には以前のWofiの起動回数を引き継いでいます。履歴のないアプリは名前順です。
+履歴は最大50件を保持し、アプリ一覧キャッシュは無効にして並びを毎回反映します。
+入力時はあいまい検索とfzf順の並べ替えに対応しています。矢印キーで選択、Enterで起動、
+Escで閉じます。アプリ検索専用で、モード切り替えタブは表示しません。
+端末内アプリの実行にはfootを使います。
+Wofiと既存Rofi設定は保持しています。Super+Shift+Vのクリップボードは引き続きWofiです。
+Super+AのNucleusランチャーも引き続き利用できます。
+Super+Rを戻す場合は `hyprland.lua` の `local menu` を
+`"wofi --show drun"` に戻し、`hyprctl reload` を実行してください。
+
+## 3本指下スワイプのSpotlight風ランチャー
+
+`~/.config/libinput-gestures.conf` の3本指下スワイプは、Rofiの
+`~/.config/rofi/spotlight-launcher.rasi` を起動します。
+実体は `../rofi/spotlight-launcher.rasi` で、グリッドテーマを読み込んで
+表示部分のみ620×380px・1列5行のコンパクトな一覧に変更しています。
+アイコンは28px、名前は16ptでアイコンの右側に表示します。
+検索欄は入力欄のみで、コマンドタブは表示しません。
+起動履歴・あいまい検索・すりガラスの配色はSuper+Rと共通です。
+ジェスチャー設定の反映には `libinput-gestures-setup restart` を使います。
 
 ## 公式Discordの透過
 
 公式Discord（app ID `discord`）はウィンドウ全体の不透明度を
 `0.80 override 0.70 override`（操作中80%、非アクティブ時70%）にしています。
 footとZedと同じブラー指定（`no_blur=false`、`xray=false`）を適用し、
-共通の強度size=3、passes=3を使います。背景だけに白30%を加える設定は行わず、
+共通の強度size=4、passes=3を使います。背景だけに白30%を加える設定は行わず、
 Discord自体の配色とVesktopの設定は変更していません。
 
 ## 旧設定へ戻す
